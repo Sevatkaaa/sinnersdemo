@@ -1,9 +1,8 @@
 package com.sinners.demo.sin;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.sinners.demo.user.User;
+
+import javax.persistence.*;
 
 @Entity
 public class Sin implements Sinnable {
@@ -14,6 +13,10 @@ public class Sin implements Sinnable {
     protected String type;
     protected Integer weight;
     protected String description;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    protected User author;
 
     public Sin() {
     }
@@ -38,6 +41,17 @@ public class Sin implements Sinnable {
         this.description = description;
     }
 
+    public Sin(String type, Integer weight, String description, User author) {
+        this.type = type;
+        this.weight = weight;
+        this.description = description;
+        this.author = author;
+    }
+
+    public String getAuthorName() {
+        return author.getUsername();
+    }
+
     public String getType() {
         return type;
     }
@@ -60,6 +74,14 @@ public class Sin implements Sinnable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     @Override

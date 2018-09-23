@@ -2,7 +2,9 @@ package com.sinners.demo.controller;
 
 import com.sinners.demo.repository.SinRepository;
 import com.sinners.demo.sin.Sin;
+import com.sinners.demo.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +29,13 @@ public class GreetingController {
     }
 
     @PostMapping("/main")
-    public String addSin(@RequestParam String sinType, @RequestParam Integer sinWeight, @RequestParam String sinDescription,  Map<String, Object> model) {
-        Sin sin = new Sin(sinType, sinWeight, sinDescription);
+    public String addSin(
+            @AuthenticationPrincipal User user,
+            @RequestParam String sinType,
+            @RequestParam Integer sinWeight,
+            @RequestParam String sinDescription,
+            Map<String, Object> model) {
+        Sin sin = new Sin(sinType, sinWeight, sinDescription, user);
         sinRepository.save(sin);
         return getAllSinsAndReturn(model);
     }
