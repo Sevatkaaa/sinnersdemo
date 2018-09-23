@@ -1,7 +1,16 @@
 package com.sinners.demo.sin;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Sin implements Sinnable {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    protected Long id;
     protected String type;
     protected Integer weight;
     protected String description;
