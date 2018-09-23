@@ -6,7 +6,14 @@
 </head>
 <body>
     <div>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <div>
         <form method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
             <input type="text" name="sinType" placeholder="Тип греха">
             <input type="number" name="sinWeight" placeholder="Тяжесть греха">
             <input type="text" name="sinDescription" placeholder="Описание греха">
@@ -15,6 +22,7 @@
     </div>
     <div>Список грехов</div>
     <form method="post" action="filter">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <input type="text" name="filter">
         <button type="submit">Чё я натворил</button>
     </form>

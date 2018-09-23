@@ -16,18 +16,17 @@ public class GreetingController {
     @Autowired
     private SinRepository sinRepository;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="Sinner") String name, Map<String, Object> model) {
-        model.put("name", name);
+    @GetMapping("/")
+    public String greeting(Map<String, Object> model) {
         return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String main(Map<String, Object> model) {
         return getAllSinsAndReturn(model);
     }
 
-    @PostMapping
+    @PostMapping("/main")
     public String addSin(@RequestParam String sinType, @RequestParam Integer sinWeight, @RequestParam String sinDescription,  Map<String, Object> model) {
         Sin sin = new Sin(sinType, sinWeight, sinDescription);
         sinRepository.save(sin);
