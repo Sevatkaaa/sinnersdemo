@@ -3,6 +3,7 @@
 <@c.page>
     <div>
         <@l.logout />
+        <span><a href="/user">Users list</a></span>
     </div>
     <div>
         <form method="post">
@@ -15,7 +16,7 @@
     </div>
     <div>Список грехов</div>
     <form method="get" action="/main">
-        <input type="text" name="filter" value="${filter?if_exists}" />
+        <input type="text" name="filter" value="${filter?ifExists}" />
         <button type="submit">Чё я натворил</button>
     </form>
     <#list sins as sin>
