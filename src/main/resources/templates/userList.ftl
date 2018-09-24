@@ -1,5 +1,6 @@
 <#import "parts/common.ftl" as c>
 <@c.page>
+<div><a href="/main">Back to main page</a></div>
 List of all users
 <table>
     <thead>
@@ -19,4 +20,5 @@ List of all users
         </#list>
     </tbody>
 </table>
+<div><a href="/main">Back to main page</a></div>
 </@c.page>
