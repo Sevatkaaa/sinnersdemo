@@ -24,8 +24,14 @@ public class GreetingController {
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model) {
-        return getAllSinsAndReturn(model);
+    public String main(@RequestParam(required = false) String filter, Map<String, Object> model) {
+        if (filter == null || filter.isEmpty()) {
+            return getAllSinsAndReturn(model);
+        }
+        List<Sin> sins = sinRepository.findByType(filter);
+        model.put("sins", sins);
+        model.put("filter", filter);
+        return "main";
     }
 
     @PostMapping("/main")
@@ -42,16 +48,6 @@ public class GreetingController {
 
     private String getAllSinsAndReturn(Map<String, Object> model) {
         Iterable<Sin> sins = sinRepository.findAll();
-        model.put("sins", sins);
-        return "main";
-    }
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        if (filter == null || filter.isEmpty()) {
-            return getAllSinsAndReturn(model);
-        }
-        List<Sin> sins = sinRepository.findByType(filter);
         model.put("sins", sins);
         return "main";
     }
