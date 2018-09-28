@@ -25,6 +25,8 @@
         <div class="navbar-text mr-3">${message}</div>
         <#if isLogged>
             <@l.logout />
+        <#else>
+            <@l.login_bar />
         </#if>
     </div>
 </nav>
