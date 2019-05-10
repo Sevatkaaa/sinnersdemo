@@ -1,36 +1,39 @@
+<#include "parts/security.ftl">
 <#import "parts/common.ftl" as c>
+
 <@c.page>
     <div class="form-row">
         <div class="form-group col-md-6">
             <form method="get" action="/main" class="form-inline">
                 <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Enter search type"/>
-                <button type="submit" class="btn btn-primary ml-2">Чё я натворил</button>
+                <input type="text" name="filterMsg" class="form-control" value="${filterMsg?ifExists}" placeholder="Enter message to search"/>
+                <button type="submit" class="btn btn-primary ml-2">Search</button>
             </form>
         </div>
     </div>
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseSin" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Add new sin
+        Add message
     </a>
     <div class="collapse" id="collapseSin">
         <div class="form-group mt-3">
             <form method="post">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="form-group">
-                    <input type="text" name="sinType" required=true class="form-control" placeholder="Тип греха">
+                    <input type="text" name="sinType" required=true class="form-control" placeholder="Type">
                 </div>
                 <div class="form-group">
-                    <input type="number" name="sinWeight" required=true class="form-control" placeholder="Тяжесть греха">
+                    <input type="number" name="sinWeight" required=true class="form-control" placeholder="Level">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="sinDescription" required=true class="form-control" placeholder="Описание греха">
+                    <input type="text" name="sinDescription" required=true class="form-control" placeholder="Description">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary ml-2">Зацени мой грешок</button>
+                    <button type="submit" class="btn btn-primary ml-2">Add</button>
                 </div>
             </form>
         </div>
     </div>
-    <h4 class="mt-3">Грешки</h4>
+    <h4 class="mt-3">Messages</h4>
 <div class="card-columns">
     <#list sins as sin>
         <div class="card my-4">
@@ -41,10 +44,19 @@
             </div>
             <div class="card-footer text-muted">
                 by ${sin.authorName}
+                <#if isAdmin>
+
+                    <form method="get" action="/main/del" class="form-inline">
+                        <button type="submit" class="btn btn-primary ml-2">Delete</button>
+                        <input type="hidden" name="descr" value="${sin.description?ifExists}">
+                        <input type="hidden" name="type" value="${sin.type?ifExists}">
+                    </form>
+                </#if>
             </div>
         </div>
+
     <#else>
-    No such sins
+        No such messages
 
     </#list>
 </div>

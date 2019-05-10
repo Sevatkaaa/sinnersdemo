@@ -16,7 +16,7 @@ import java.util.UUID;
 @Service
 public class UserService implements UserDetailsService {
 
-    private static final String LINK = "http://10.17.179.186:8080/activation/";
+    private static final String LINK = "http://localhost:8080/activation/";
     private static final String ACTIVATION_CODE = "Activation code";
     private static final String WELCOME = "Hey, %s! \n" +
             "Welcome to sinners app, share your sins with other guys and have fun!\n" +

@@ -2,13 +2,13 @@ package com.sinners.demo.controller;
 
 import com.sinners.demo.repository.SinRepository;
 import com.sinners.demo.sin.Sin;
+import com.sinners.demo.user.Role;
 import com.sinners.demo.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,14 +24,26 @@ public class GreetingController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false) String filter, Map<String, Object> model) {
-        if (filter == null || filter.isEmpty()) {
+    public String mainMsg(@RequestParam(required = false) String filter, String filterMsg, Map<String, Object> model) {
+        if (isEmpty(filter) && isEmpty(filterMsg)) {
             return getAllSinsAndReturn(model);
         }
-        List<Sin> sins = sinRepository.findByType(filter);
+        List<Sin> sins;
+        if (isEmpty(filter)) {
+            sins = sinRepository.findByDescriptionContaining(filterMsg);
+        } else if (isEmpty(filterMsg)) {
+            sins = sinRepository.findByTypeContaining(filter);
+        } else {
+            sins = sinRepository.findByDescriptionContainingAndTypeContaining(filterMsg, filter);
+        }
         model.put("sins", sins);
         model.put("filter", filter);
+        model.put("filterMsg", filterMsg);
         return "main";
+    }
+
+    private boolean isEmpty(@RequestParam(required = false) String filter) {
+        return filter == null || filter.isEmpty();
     }
 
     @PostMapping("/main")
@@ -43,6 +55,15 @@ public class GreetingController {
             Map<String, Object> model) {
         Sin sin = new Sin(sinType, sinWeight, sinDescription, user);
         sinRepository.save(sin);
+        return getAllSinsAndReturn(model);
+    }
+
+    @GetMapping("/main/del")
+    public String deleteSin(@RequestParam String descr, @RequestParam String type, Map<String, Object> model) {
+        Sin sin = sinRepository.findByDescriptionAndType(descr, type).stream().findFirst().orElse(null);
+        if (sin != null) {
+            sinRepository.delete(sin);
+        }
         return getAllSinsAndReturn(model);
     }
 
