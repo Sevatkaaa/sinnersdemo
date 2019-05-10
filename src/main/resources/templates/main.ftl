@@ -4,7 +4,7 @@
 <@c.page>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <form method="get" action="/main" class="form-inline">
+            <form method="get" action="/main/search" class="form-inline">
                 <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Enter search type"/>
                 <input type="text" name="filterMsg" class="form-control" value="${filterMsg?ifExists}" placeholder="Enter message to search"/>
                 <button type="submit" class="btn btn-primary ml-2">Search</button>
@@ -16,7 +16,7 @@
     </a>
     <div class="collapse" id="collapseSin">
         <div class="form-group mt-3">
-            <form method="post">
+            <form method="post" action="/main/add">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="form-group">
                     <input type="text" name="sinType" required=true class="form-control" placeholder="Type">
@@ -52,6 +52,12 @@
                         <input type="hidden" name="type" value="${sin.type?ifExists}">
                     </form>
                 </#if>
+                <form method="post" action="/main/like" class="form-inline">
+                                                            <button type="submit" class="btn btn-primary ml-2">Like 8
+                                                            </button>
+                                                            <input type="hidden" name="descr" value="${sin.description?ifExists}">
+                                                            <input type="hidden" name="type" value="${sin.type?ifExists}">
+                                                        </form>
             </div>
         </div>
 
