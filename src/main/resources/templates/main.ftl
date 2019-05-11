@@ -53,11 +53,15 @@
                     </form>
                 </#if>
                 <form method="post" action="/main/like" class="form-inline">
-                                                            <button type="submit" class="btn btn-primary ml-2">Like 8
-                                                            </button>
+                                                            <button type="submit" class="btn btn-primary ml-2">Like</button>
+                    <input type="hidden" name="_csrf" value="${_csrf.token}">
                                                             <input type="hidden" name="descr" value="${sin.description?ifExists}">
                                                             <input type="hidden" name="type" value="${sin.type?ifExists}">
+                                                            <#--<input type="hidden" name="id" value="${sin.id?ifExists}">-->
                                                         </form>
+                <i>Liked by <#list sin.likedBy as like>${like.username}<#sep>, <#else>no one(</#list>
+
+                </i>
             </div>
         </div>
 

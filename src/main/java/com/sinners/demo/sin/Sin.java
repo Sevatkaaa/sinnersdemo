@@ -3,6 +3,8 @@ package com.sinners.demo.sin;
 import com.sinners.demo.user.User;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Sin implements Sinnable {
@@ -17,6 +19,24 @@ public class Sin implements Sinnable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     protected User author;
+
+    @ManyToMany(mappedBy = "likes", fetch = FetchType.EAGER)
+    private Set<User> likedBy = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sin sin = (Sin) o;
+
+        return id.equals(sin.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 
     public Sin() {
     }
@@ -82,6 +102,22 @@ public class Sin implements Sinnable {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Set<User> getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(Set<User> likedBy) {
+        this.likedBy = likedBy;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
