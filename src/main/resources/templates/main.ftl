@@ -12,7 +12,7 @@
         </div>
     </div>
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseSin" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Add message
+        Add sin
     </a>
     <div class="collapse" id="collapseSin">
         <div class="form-group mt-3">
@@ -33,7 +33,7 @@
             </form>
         </div>
     </div>
-    <h4 class="mt-3">Messages</h4>
+    <h4 class="mt-3">Sins</h4>
 <div class="card-columns">
     <#list sins as sin>
         <div class="card my-4">
@@ -66,7 +66,7 @@
         </div>
 
     <#else>
-        No such messages
+        No such sins
 
     </#list>
 </div>

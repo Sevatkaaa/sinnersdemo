@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Controller
 public class RegistrationController {
-    private static final String ACTIVATED_ACCOUNT = "You successfully activated ur account! Now u can add a lot of messages";
+    private static final String ACTIVATED_ACCOUNT = "You successfully activated ur fucking account! Now u can add a lot of sins";
     private static final String NOT_ACTIVATED = "Don't try to cheat, your account wasn't activated, or maybe u have already made it";
 
     @Autowired
