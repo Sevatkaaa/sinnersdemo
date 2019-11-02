@@ -20,7 +20,10 @@ public class Sin implements Sinnable {
     @JoinColumn(name = "user_id")
     protected User author;
 
-    @ManyToMany(mappedBy = "likes", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_likes",
+            joinColumns = { @JoinColumn(name = "sin_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private Set<User> likedBy = new HashSet<>();
 
     @Override

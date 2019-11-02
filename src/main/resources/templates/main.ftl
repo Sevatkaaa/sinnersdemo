@@ -6,7 +6,7 @@
         <div class="form-group col-md-6">
             <form method="get" action="/main/search" class="form-inline">
                 <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Enter search type"/>
-                <input type="text" name="filterMsg" class="form-control" value="${filterMsg?ifExists}" placeholder="Enter message to search"/>
+                <input type="text" name="filterMsg" class="form-control" value="${filterMsg?ifExists}" placeholder="Enter sin to search"/>
                 <button type="submit" class="btn btn-primary ml-2">Search</button>
             </form>
         </div>

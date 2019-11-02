@@ -26,10 +26,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_likes",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "sin_id") })
+    @ManyToMany(mappedBy = "likedBy", fetch = FetchType.EAGER)
     private Set<Sin> likes = new HashSet<>();
 
     @Override

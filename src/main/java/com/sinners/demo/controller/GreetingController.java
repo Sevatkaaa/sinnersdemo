@@ -93,11 +93,9 @@ public class GreetingController {
     @PostMapping("/main/like")
     public String likeSin(@AuthenticationPrincipal User user, @RequestParam String descr, @RequestParam String type) {
 //        Sin sin = sinRepository.findById(id).orElse(null);
-        Sin sin = sinRepository.findByDescriptionAndType(descr, type).stream().findFirst  ().orElse(null);
+        Sin sin = sinRepository.findByDescriptionAndType(descr, type).stream().findFirst().orElse(null);
         if (sin != null && !sin.getLikedBy().contains(user)) {
-            user.getLikes().add(sin);
             sin.getLikedBy().add(user);
-            userRepository.save(user);
             sinRepository.save(sin);
         }
         return REDIRECT_MAIN;
@@ -106,9 +104,8 @@ public class GreetingController {
     private String getAllSinsAndReturn(Map<String, Object> model) {
         Iterable<Sin> sins = sinRepository.findAll();
         List<Sin> sortedSins = new ArrayList<>();
-        Iterator<Sin> iterator = sins.iterator();
-        while (iterator.hasNext()) {
-            sortedSins.add(iterator.next());
+        for (Sin sin : sins) {
+            sortedSins.add(sin);
         }
         sortedSins.sort(((o1, o2) -> o2.getId().compareTo(o1.getId())));
         model.put("sins", sins);
